@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOOD RISK RANKING</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #sunburst-container {
+            width: 50%;
+            height: 100vh;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+            border-right: 1px solid #ccc;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #link-frame {
+            width: 50%;
+            height: 100vh;
+            border: none;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sunburst container -->
+    <div id="sunburst-container">
+        <div id="sunburst" style="width: 100%; height: 100%;"></div>
+    </div>
+
+    <!-- Link target iframe -->
+    <iframe id="link-frame" src="about:blank"></iframe>
+
+    <script>
+        // JavaScript to create the Sunburst chart and handle clicks
+        var data = [{
+            type: "sunburst",
+            labels: [
+                'Flood Risk<br>Ranking Project',
+                'Data Source<br>& Wrangling',
+                'Data<br>Preprocessing',
+                'Unsupervised<br>Machine Learning',
+                'Visualization',
+                'Data Source:<br>riskfinder.org<br>Zillow',
+                'Data Cleaning:<br>21 columns<br>516 observations',
+                'Descriptors:<br>19 features<br>MinMaxScaler',
+                'Elbow Rule:<br>k=4',
+                'PCA:<br>Rejected!',
+                't-SNE:<br>Selected!',
+                'K-Means<br>Clustering',
+                'Geospatial<br>Visualization',
+                '3D & 2D<br>Scatter Plots'
+            ],
+            parents: [
+                '',
+                'Flood Risk<br>Ranking Project',
+                'Flood Risk<br>Ranking Project',
+                'Flood Risk<br>Ranking Project',
+                'Flood Risk<br>Ranking Project',
+                'Data Source<br>& Wrangling',
+                'Data Source<br>& Wrangling',
+                'Data<br>Preprocessing',
+                'Unsupervised<br>Machine Learning',
+                'Unsupervised<br>Machine Learning',
+                'Unsupervised<br>Machine Learning',
+                'Visualization',
+                'Visualization',
+                'Visualization'
+            ],
+            branchvalues: "total",
+            marker: {colors: ['#FF7F0E', '#1F77B4', '#1F77B4', '#1F77B4', '#1F77B4', '#AEC7E8', '#AEC7E8', '#98DF8A', '#FFBB78', '#FFBB78', '#FFBB78', '#C5B0D5', '#C5B0D5', '#C5B0D5']}
+        }];
+
+        var layout = {
+            title: "CLICK ON A TOPIC TO BEGIN",
+            title_font: {size: 25, color: 'darkblue',weight: 'bold'},
+            title_x: 0.5,
+            paper_bgcolor: 'white',
+            font: {color: 'Black'},
+            margin: {t: 100, l: 10, r: 10, b: 10},
+			
+        };
+
+        var config = {responsive: true};
+
+        // Create the Sunburst chart in the sunburst div
+        Plotly.newPlot('sunburst', data, layout, config);
+
+
+    // JavaScript to handle clicks and load the corresponding URL in the other iframe
+    document.getElementById('sunburst').on('plotly_click', function(data){
+        var urlMap = {
+            'Flood Risk<br>Ranking Project': 'home.html',
+            'Data Source<br>& Wrangling': 'data.html',
+            'Data<br>Preprocessing': 'preprocessing.html',
+            'Unsupervised<br>Machine Learning': 'ml.html',
+            'Visualization': 'visualization.html',
+            'Data Source:<br>riskfinder.org<br>Zillow': 'datasources.html',
+            'Data Cleaning:<br>21 columns<br>516 observations': 'datacleaning.html',
+            'Descriptors:<br>19 features<br>MinMaxScaler': 'preprocessing.html',
+            'Elbow Rule:<br>k=4': 'elbowrule.html',
+            'PCA:<br>Rejected!': 'pca.html',
+            't-SNE:<br>Selected!': 'tsne.html',
+            'K-Means<br>Clustering': 'kmeans.html',
+            'Geospatial<br>Visualization': 'Geospatial.html',
+            '3D & 2D<br>Scatter Plots': 'Scatterplots.html'
+        };
+
+        var clickedLabel = data.points[0].label;
+        var url = urlMap[clickedLabel];
+        if (url) {
+            document.getElementById('link-frame').src = url;
+        }
+    });
+
+
+    </script>
+</body>
+</html>

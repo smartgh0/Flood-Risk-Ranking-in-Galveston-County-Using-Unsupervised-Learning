@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLOOD RISK RANKING</title>
+    <title>FLOOD RISK RANKING IN GALVESTON COUNTY</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         body {
@@ -65,7 +65,7 @@
                 't-SNE:<br>Selected!',
                 'K-Means<br>Clustering',
                 'Geospatial<br>Visualization',
-                '3D & 2D<br>Scatter Plots'
+                'Galveston <br>Boundary Map<br>Plots'
             ],
             parents: [
                 '',
@@ -88,7 +88,7 @@
         }];
 
         var layout = {
-            title: "CLICK ON A TOPIC TO BEGIN",
+            title: "PROJECT DASHBOARD, CLICK ON A SECTION TO BEGIN",
             title_font: {size: 25, color: 'darkblue',weight: 'bold'},
             title_x: 0.5,
             paper_bgcolor: 'white',
@@ -119,7 +119,7 @@
             't-SNE:<br>Selected!': 'tsne.html',
             'K-Means<br>Clustering': 'kmeans.html',
             'Geospatial<br>Visualization': 'Geospatial.html',
-            '3D & 2D<br>Scatter Plots': 'Scatterplots.html'
+            'Galveston <br>Boundary Map<br>Plots': 'Scatterplots.html'
         };
 
         var clickedLabel = data.points[0].label;

